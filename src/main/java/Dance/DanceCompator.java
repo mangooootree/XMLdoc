@@ -1,5 +1,7 @@
 package Dance;
 
+import Dance.generated.Dance;
+
 import java.util.Comparator;
 
 public class DanceCompator implements Comparator<Dance> {

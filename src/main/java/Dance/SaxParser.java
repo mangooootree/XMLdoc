@@ -1,5 +1,6 @@
 package Dance;
 
+import Dance.generated.*;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
