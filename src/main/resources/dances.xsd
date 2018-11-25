@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+           attributeFormDefault="unqualified">
+
+    <xs:element name="SomeDances">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="unbounded" name="Dance" type="Dance"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="Dance">
+        <xs:sequence>
+            <xs:element name="DanceType" type="TypeOfDance"/>
+            <xs:element name="SceneType"
+                        type="TypeOfScene"/>
+            <xs:element name="MusicType" type="TypeOfMusic"/>
+            <xs:element name="DanceGroup" type="DanceGroup" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="SoloPairGroup" type="SoloPairGroup"/>
+        </xs:sequence>
+        <xs:attribute name="DanceID" type="xs:ID" use="required"/>
+    </xs:complexType>
+
+    <xs:simpleType name="TypeOfDance">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="ballroom"/>
+            <xs:enumeration value="folk"/>
+            <xs:enumeration value="pop"/>
+            <xs:enumeration value="east"/>
+            <xs:enumeration value="rock"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="TypeOfScene">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="assembly hall"/>
+            <xs:enumeration value="outdoor playground"/>
+            <xs:enumeration value="TV studio"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="TypeOfMusic">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="phonogram"/>
+            <xs:enumeration value="live music"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="SoloPairGroup">
+        <xs:choice>
+            <xs:element name="Mass" type="MassType"/>
+            <xs:element name="Solo" type="SoloType"/>
+            <xs:element name="Pair" type="PairType"/>
+        </xs:choice>
+    </xs:complexType>
+
+    <xs:complexType name="DanceGroup">
+        <xs:sequence>
+            <xs:element name="DanceGroupName" type="NameOfDanceGroup"/>
+            <xs:element name="YearOfFoundation" type="YearOfFoundation"/>
+            <xs:element name="FounderName" type="NameOfFounder"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Dancer">
+        <xs:sequence>
+            <xs:element name="DancerName" type="NameOfDanceGroup"/>
+            <xs:element name="DancerGender" type="GenderOfDancer"/>
+            <xs:element name="DancerAge" type="Age"/>
+            <xs:element name="DancerAgeOfExperience" type="Age"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="GenderOfDancer">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="male|female"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="NameOfDanceGroup">
+        <xs:restriction base="xs:string">
+            <xs:whiteSpace value="collapse"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="NameOfFounder">
+        <xs:restriction base="xs:string">
+            <xs:whiteSpace value="collapse"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Age">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="0"/>
+            <xs:maxInclusive value="150"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="YearOfFoundation">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="1900"/>
+            <xs:maxInclusive value="2018"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="SoloType">
+        <xs:sequence>
+            <xs:element name="Dancer" type="Dancer"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="PairType">
+        <xs:complexContent>
+            <xs:extension base="SoloType">
+                <xs:sequence>
+                    <xs:element name="Dancer" type="Dancer"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="MassType">
+        <xs:complexContent>
+            <xs:extension base="PairType">
+                <xs:sequence>
+                    <xs:element name="Dancer" type="Dancer" maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+</xs:schema>
